@@ -1,15 +1,19 @@
+;rax -> return value
+;rdi -> used to pass 1st arg to function
+;The order data is passed into functions through
+;   the registers is: rdi, rsi, rdx, rcx, r8, and r9.
+
 global  _ft_strlen
 section .text
 
-_ft_strlen:
-    xor rax, rax    ;mov rax, 0
-    jmp _loop
+	_ft_strlen:
+		xor rax, rax
 
-_loop:
-    cmp byte[rci + rax], 0   ;rsi[rax] == '\0' ? 
-    je _end ;jump if equal
-    inc rax     ;rax++
-    jmp _loop
+	loop:
+		cmp byte[rdi + rax], 0
+		je end
+		inc rax
+		jmp loop
 
-_end:
-    ret
+	end:
+		ret

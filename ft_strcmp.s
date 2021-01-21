@@ -1,19 +1,21 @@
+;The order data is passed into functions through
+;   the registers is: rdi, rsi, rdx, rcx, r8, and r9.
+
 global _ft_strcmp
 section .text
 
-_ft_strcmp:
-    xor rax, rax
-    jmp _loop
+	_ft_strcmp:
+		xor rax, rax
 
-_loop:
-    mov dl, byte[rsi + rax]
-    mov cl, byte[rdi + rax]
-    cmp dl, cl
-    jne _end
-    inc rax
-    jmp _loop
+	loop:
+		mov dl, byte[rsi + rax]
+		mov cl, byte[rdi + rax]
+		cmp dl, cl
+		jne end
+		inc rax
+		jmp loop
 
-_end:
-    mov rax, dl
-    sub rax, cl
-    ret
+	end:
+		mov rax, dl
+		sub rax, cl
+		ret
