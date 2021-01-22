@@ -6,7 +6,7 @@
 /*   By: iidzim <iidzim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 15:51:58 by iidzim            #+#    #+#             */
-/*   Updated: 2021/01/21 16:01:10 by iidzim           ###   ########.fr       */
+/*   Updated: 2021/01/22 17:02:09 by iidzim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 size_t		ft_strlen(const char *s);
 int			strcmp(const char *s1, const char *s2);
-char		*stpcpy(char * dst, const char * src);
+char		*ft_stpcpy(char * dst, const char * src);
 char		*strdup(const char *s1);
 ssize_t		ft_write(int fd, const void *buf, size_t nbyte);
 ssize_t		ft_read(int fd, void *buf, size_t nbyte);

@@ -16,6 +16,7 @@ section .text
 		jmp loop
 
 	end:
-		mov rax, dl
-		sub rax, cl
+		movzx rax, cl
+        movzx rdx, dl
+		sub rax, rdx
 		ret

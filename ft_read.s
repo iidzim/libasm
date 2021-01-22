@@ -3,7 +3,7 @@
 
 global  
 	_ft_read
-	extern 
+	extern ___error
 
 section .text
 
@@ -14,3 +14,9 @@ section .text
 		ret
 
 	error:
+        push rax
+        call ___error
+        pop rdi
+        mov [rax], rdi
+        mov rax, -1
+        ret
