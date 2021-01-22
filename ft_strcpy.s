@@ -5,20 +5,20 @@
 ;The order data is passed into functions through
 ;   the registers is: rdi, rsi, rdx, rcx, r8, and r9.
 
-global  _ft_strcpy
 section .text
+	global  _ft_strcpy
 
-	_ft_strcpy:
-		xor rax, rax
+_ft_strcpy:
+	xor rax, rax
 
-	loop:
-		mov dl, byte[rsi + rax]
-		mov byte[rdi + rax], dl
-		cmp dl, 0
-		je end
-		inc rax
-		jne loop
+loop:
+	mov dl, byte[rsi + rax]
+	mov byte[rdi + rax], dl
+	cmp dl, 0
+	je end
+	inc rax
+	jne loop
 
-	end:
-		mov rax, rdi
-		ret
+end:
+	mov rax, rdi
+	ret

@@ -3,17 +3,17 @@
 ;The order data is passed into functions through
 ;   the registers is: rdi, rsi, rdx, rcx, r8, and r9.
 
-global  _ft_strlen
 section .text
+	global  _ft_strlen
 
-	_ft_strlen:
-		xor rax, rax
+_ft_strlen:
+	xor rax, rax
 
-	loop:
-		cmp byte[rdi + rax], 0
-		je end
-		inc rax
-		jmp loop
+loop:
+	cmp byte[rdi + rax], 0
+	je end
+	inc rax
+	jmp loop
 
-	end:
-		ret
+end:
+	ret
