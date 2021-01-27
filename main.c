@@ -6,32 +6,80 @@
 /*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 11:41:39 by iidzim            #+#    #+#             */
-/*   Updated: 2021/01/22 23:22:43 by mac              ###   ########.fr       */
+/*   Updated: 2021/01/27 18:55:46 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libasm.h"
 
-//ft_strlen
-int r;
+int     main()
+{
 
-r = ft_strlen("");
-r = strlen("");
+    printf("-------Ft_Strlen-------------\n\n");
 
-// r = ft_strlen("qwertyu");
-// r = strlen("qwertyu");
+    const char *s = "qwertyuio kjfjekje v ekjfekrjgekrger erkgkrejgkrjger gerkgjerkgner ";
+    const char *s1 = "";
+    printf("strlen == > %lu \n", strlen(s));
+    printf("ft_strlen == > %zu \n", ft_strlen(s));
 
-printf("%zu\n", r);
+    printf("strlen == > %lu \n", strlen(s1));
+    printf("ft_strlen == > %zu \n", ft_strlen(s1));
+    
+    printf("--------Ft_Strcmp-------------\n\n");
+    
+    printf("ft_strcmp_1 === > %d\n", ft_strcmp("YOOO", ""));
+    printf("strcmp_1 === > %d\n", strcmp("YOOO", ""));
 
-//ft_strcmp
-int r;
+    printf("ft_strcmp_2 === > %d\n", ft_strcmp("YOOO", "YOOO"));
+    printf("strcmp_2 === > %d\n", strcmp("YOOO", "YOOO"));
 
-r = ft_strcmp("", "");
-r = strcmp("", "");
+    printf("ft_strcmp_3 === > %d\n", ft_strcmp("YOOO", "AAAAABBBBCCCCCDDDDD"));
+    printf("strcmp_3 === > %d\n", strcmp("YOOO", "AAAAABBBBCCCCCDDDDD"));
 
-// r = ft_strcmp("qwertyu", "qw");
-// r = strcmp("qwertyu", "qw");
+    printf("ft_strcmp_4 === > %d\n", ft_strcmp("", "AAAAABBBBCCCCCDDDDD"));
+    printf("strcmp_4 === > %d\n", strcmp("", "AAAAABBBBCCCCCDDDDD"));
 
-printf("%d\n", r);
+    printf("--------Ft_strcpy------------\n\n");
+    
+    const char *src = "kefjkewbf kjbfejkbjkfb";
+    char        *dst;
+    if (!(dst = (char *) calloc(sizeof(char), 1000)))
+        return (-1);
+    printf("strcpy_1 == > %s\n", strcpy(dst, src));
+    printf("ft_strcpy_1 == > %s\n", ft_strcpy(dst, src));
+    printf("ft_strlen == > %zu \n", ft_strlen(dst));
 
-//ft_strcpy
+    printf("strcpy_2 ==> %s\n", strcpy(dst, ""));
+    printf("ft_strcpy_2 ==> %s\n", ft_strcpy(dst, ""));
+    printf("ft_strlen == > %zu \n", ft_strlen(dst));
+
+    printf ("----------FT_write------------------\n\n");
+
+    char *strr = "Hello world ii\n";
+    int i = strlen(strr);
+    printf("write return == > %zd errno ==> %d\n", write(-1, strr, i), errno);
+    printf("write return == > %zd errno ==> %d\n", ft_write(-1, strr, i), errno);
+
+    printf("write return == > %zd\n", write(1, strr, i));
+    printf("write return == > %zd\n", ft_write(1, strr, i));
+
+    printf("-----------Ft_read---------\n\n");
+    
+    int fd = open("main.c", O_RDONLY);
+    char *str = calloc(sizeof(char) , 1000); 
+    printf("==> %zd errno -> %d\n", read(fd, str, 500), errno);
+    printf("==> %zd errno -> %d\n", ft_read(fd, str, 500), errno);
+    free(str);
+    
+    printf ("----------Ft_strdup---------------\n\n");
+    
+    printf("strdup ==== > %lu\n", strlen(strdup("qwerty")));
+    printf("ft_strdup ==== > %lu\n", strlen(ft_strdup("qwerty")));
+
+    printf("strdup ==== > %s\n", strdup("wohfwohfoewhfeowfheowbfeowfeowfeowijfoew"));
+    printf("strdup ==== > %s\n", ft_strdup("wohfwohfoewhfeowfheowbfeowfeowfeowijfoew"));
+
+    printf("strdup ===== > %s\n", strdup(""));  
+    printf("strdup ===== > %s\n", ft_strdup(""));  
+    return (0);
+}

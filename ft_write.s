@@ -11,7 +11,7 @@ _ft_write:
 	jc error
 	ret
 
-error:
+error: 
 	push rax
 	call ___error
 	pop rdi
