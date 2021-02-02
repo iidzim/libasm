@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: iidzim <iidzim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 11:41:39 by iidzim            #+#    #+#             */
-/*   Updated: 2021/01/27 18:55:46 by mac              ###   ########.fr       */
+/*   Updated: 2021/02/02 11:05:00 by iidzim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ int     main()
 
     printf("ft_strcmp_3 === > %d\n", ft_strcmp("YOOO", "AAAAABBBBCCCCCDDDDD"));
     printf("strcmp_3 === > %d\n", strcmp("YOOO", "AAAAABBBBCCCCCDDDDD"));
+    
+    printf("ft_strcmp_33 === > %d\n", ft_strcmp("AAAAABBBBCCCCCDDDDD", "YOOO"));
+    printf("strcmp_33 === > %d\n", strcmp("AAAAABBBBCCCCCDDDDD", "YOOO"));
 
     printf("ft_strcmp_4 === > %d\n", ft_strcmp("", "AAAAABBBBCCCCCDDDDD"));
     printf("strcmp_4 === > %d\n", strcmp("", "AAAAABBBBCCCCCDDDDD"));

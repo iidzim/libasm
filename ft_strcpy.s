@@ -1,5 +1,6 @@
 ;rdi -> used topass 1st arg to function (64 bits)
-;rsi -> used topass 2nd arg to function (64 bits)
+;rsi -> used topass 2nd arg to function (64 bits) - 
+;       register source index (source for data copies) 
 ;dl -> used topass 3th arg to function (lowest 8-bits)
 ;cl -> used topass 4th arg to function (lowest 8-bits)
 ;The order data is passed into functions through
