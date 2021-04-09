@@ -6,7 +6,7 @@
 #    By: iidzim <iidzim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/20 16:02:49 by iidzim            #+#    #+#              #
-#    Updated: 2021/01/22 17:53:07 by iidzim           ###   ########.fr        #
+#    Updated: 2021/03/19 18:06:25 by iidzim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ $(NAME):
 	ranlib $(NAME)
 
 run: all
-	gcc -Wall -Wextra -Werror -I./libasm.h libasm.a main.c -fsanitize=address -o libasm
+	gcc -Wall -Wextra -Werror -I./libasm.h libasm.a main.c -o libasm
 	./libasm
 	
 clean:

@@ -1,88 +1,188 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iidzim <iidzim@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/20 11:41:39 by iidzim            #+#    #+#             */
-/*   Updated: 2021/02/02 11:05:00 by iidzim           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libasm.h"
 
-int     main()
+int		strlen_test(char *str)
 {
+	int		ret1;
+	int		ret2;
 
-    printf("-------Ft_Strlen-------------\n\n");
+	ret1 = ft_strlen(str);
+	ret2 = strlen(str);
+	if (ret1 == ret2)
+		printf("" GREEN "[OK] " RESET "");
+	else
+		printf("" RED "[KO] " RESET "");
+	return (1);
+}
 
-    const char *s = "qwertyuio kjfjekje v ekjfekrjgekrger erkgkrejgkrjger gerkgjerkgner ";
-    const char *s1 = "";
-    printf("strlen == > %lu \n", strlen(s));
-    printf("ft_strlen == > %zu \n", ft_strlen(s));
+int		strcpy_test(char *src)
+{
+	char	dest1[BUFFER_SIZE];
+	char	dest2[BUFFER_SIZE];
 
-    printf("strlen == > %lu \n", strlen(s1));
-    printf("ft_strlen == > %zu \n", ft_strlen(s1));
-    
-    printf("--------Ft_Strcmp-------------\n\n");
-    
-    printf("ft_strcmp_1 === > %d\n", ft_strcmp("YOOO", ""));
-    printf("strcmp_1 === > %d\n", strcmp("YOOO", ""));
+	bzero(dest1, BUFFER_SIZE);
+	bzero(dest2, BUFFER_SIZE);
+	ft_strcpy(dest1, src);
+	strcpy(dest2, src);
+	if (!strcmp(dest1, dest2))
+		printf("" GREEN "[OK] " RESET "");
+	else
+		printf("" RED "[KO] " RESET "");
+	return (1);
+}
 
-    printf("ft_strcmp_2 === > %d\n", ft_strcmp("YOOO", "YOOO"));
-    printf("strcmp_2 === > %d\n", strcmp("YOOO", "YOOO"));
+int		strcmp_test(char *s1, char *s2)
+{
+	int		ret1;
+	int		ret2;
 
-    printf("ft_strcmp_3 === > %d\n", ft_strcmp("YOOO", "AAAAABBBBCCCCCDDDDD"));
-    printf("strcmp_3 === > %d\n", strcmp("YOOO", "AAAAABBBBCCCCCDDDDD"));
-    
-    printf("ft_strcmp_33 === > %d\n", ft_strcmp("AAAAABBBBCCCCCDDDDD", "YOOO"));
-    printf("strcmp_33 === > %d\n", strcmp("AAAAABBBBCCCCCDDDDD", "YOOO"));
+	ret1 = strcmp(s1, s2);
+	ret2 = ft_strcmp(s1, s2);
+	if ((ret1 > 0 && ret2 > 0) || (ret1 < 0 && ret2 < 0)
+	|| (ret1 == 0 && ret2 == 0))
+		printf("" GREEN "[OK] " RESET "");
+	else
+		printf("" RED "[KO] " RESET "");
+	return (1);
+}
 
-    printf("ft_strcmp_4 === > %d\n", ft_strcmp("", "AAAAABBBBCCCCCDDDDD"));
-    printf("strcmp_4 === > %d\n", strcmp("", "AAAAABBBBCCCCCDDDDD"));
+int		write_test(char *str)
+{
+	int		ft_write_pipe[2];
+	char	buf[BUFFER_SIZE];
+	int		ret;
 
-    printf("--------Ft_strcpy------------\n\n");
-    
-    const char *src = "kefjkewbf kjbfejkbjkfb";
-    char        *dst;
-    if (!(dst = (char *) calloc(sizeof(char), 1000)))
-        return (-1);
-    printf("strcpy_1 == > %s\n", strcpy(dst, src));
-    printf("ft_strcpy_1 == > %s\n", ft_strcpy(dst, src));
-    printf("ft_strlen == > %zu \n", ft_strlen(dst));
+	bzero(buf, BUFFER_SIZE);
+	if (pipe(ft_write_pipe) < 0)
+		exit(EXIT_FAILURE);
+	fcntl(ft_write_pipe[0], F_SETFL, O_NONBLOCK);
+	write(ft_write_pipe[1], str, strlen(str));
+	ret = read(ft_write_pipe[0], buf, BUFFER_SIZE);
+	buf[ret] = '\0';
+	if (!strcmp(buf, str))
+		printf("" GREEN "[OK] " RESET "");
+	else
+		printf("" RED "[KO] " RESET "");
+	close(ft_write_pipe[1]);
+	close(ft_write_pipe[0]);
+	return (1);
+}
 
-    printf("strcpy_2 ==> %s\n", strcpy(dst, ""));
-    printf("ft_strcpy_2 ==> %s\n", ft_strcpy(dst, ""));
-    printf("ft_strlen == > %zu \n", ft_strlen(dst));
+int		read_test(char *str)
+{
+	int		ft_read_pipe[2];
+	char	buf[BUFFER_SIZE];
+	int		ret;
 
-    printf ("----------FT_write------------------\n\n");
+	bzero(buf, BUFFER_SIZE);
+	if (pipe(ft_read_pipe) < 0)
+		exit(EXIT_FAILURE);
+	fcntl(ft_read_pipe[0], F_SETFL, O_NONBLOCK);
+	write(ft_read_pipe[1], str, strlen(str));
+	ret = ft_read(ft_read_pipe[0], buf, BUFFER_SIZE);
+	buf[ret] = '\0';
+	if (!strcmp(buf, str))
+		printf("" GREEN "[OK] " RESET "");
+	else
+		printf("" RED "[KO] " RESET "");
+	close(ft_read_pipe[1]);
+	close(ft_read_pipe[0]);
+	return (1);
+}
 
-    char *strr = "Hello world ii\n";
-    int i = strlen(strr);
-    printf("write return == > %zd errno ==> %d\n", write(-1, strr, i), errno);
-    printf("write return == > %zd errno ==> %d\n", ft_write(-1, strr, i), errno);
+int		strdup_test(char *str)
+{
+	char	*str1;
+	char	*str2;
 
-    printf("write return == > %zd\n", write(1, strr, i));
-    printf("write return == > %zd\n", ft_write(1, strr, i));
+	str1 = ft_strdup(str);
+	str2 = strdup(str);
+	printf("%d\n", strcmp(strdup(str), ft_strdup(str)));
+	if (!strcmp(str1, str2))
+		printf("" GREEN "[OK] " RESET "");
+	else
+		printf("" RED "[KO] " RESET "");
+	free(str1);
+	free(str2);
+	return (1);
+}
 
-    printf("-----------Ft_read---------\n\n");
-    
-    int fd = open("main.c", O_RDONLY);
-    char *str = calloc(sizeof(char) , 1000); 
-    printf("==> %zd errno -> %d\n", read(fd, str, 500), errno);
-    printf("==> %zd errno -> %d\n", ft_read(fd, str, 500), errno);
-    free(str);
-    
-    printf ("----------Ft_strdup---------------\n\n");
-    
-    printf("strdup ==== > %lu\n", strlen(strdup("qwerty")));
-    printf("ft_strdup ==== > %lu\n", strlen(ft_strdup("qwerty")));
+int		main(void)
+{
+	/*
+	** FT_STRLEN
+	*/
+	printf("%-12s :  ", "ft_strlen.s");
+	strlen_test("allo");
+	strlen_test("");
+	strlen_test("on test tout ce qu'on peut mon gars");
+	strlen_test("allo \0 mon gars");
+	strlen_test("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tellus metus, finibus quis sagittis quis, volutpat a justo. Nunc et pellentesque quam. Fusce aliquam aliquam libero, sed pulvinar nullam.");
+	strlen_test("        ");
+	printf("\n\n");
 
-    printf("strdup ==== > %s\n", strdup("wohfwohfoewhfeowfheowbfeowfeowfeowijfoew"));
-    printf("strdup ==== > %s\n", ft_strdup("wohfwohfoewhfeowfheowbfeowfeowfeowijfoew"));
+	/*
+	** FT_STRCPY
+	*/
+	printf("%-12s :  ", "ft_strcpy.s");
+	strcpy_test("abc");
+	strcpy_test("1111");
+	strcpy_test("allo mon gars");
+	strcpy_test("allo \0 mon gars");
+	strcpy_test("ca fou koi allo");
+	strcpy_test("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tellus metus, finibus quis sagittis quis, volutpat a justo. Nunc et pellentesque quam. Fusce aliquam aliquam libero, sed pulvinar nullam.");
+	strcpy_test("        ");
+	printf("\n\n");
 
-    printf("strdup ===== > %s\n", strdup(""));  
-    printf("strdup ===== > %s\n", ft_strdup(""));  
-    return (0);
+	/*
+	** FT_STRCMP
+	*/
+	printf("%-12s :  ", "ft_strcmp.s");
+	strcmp_test("allo", "allo");
+	strcmp_test("abcdef", "abcdef");
+	strcmp_test("", "wtf");
+	strcmp_test("on test tout ce qu'on peut mon gars", "   ");
+	strcmp_test("", "");
+	strcmp_test("beta", "");
+	strcmp_test("te\0", "\0");
+	strcmp_test("\xff\xff", "\xff\xff");
+	strcmp_test("\xff\x80", "\xff\x00");
+	strcmp_test("\xff\xfe", "\xff");
+	strcmp_test("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tellus metus, finibus quis sagittis quis, volutpat a justo. Nunc et pellentesque quam. Fusce aliquam aliquam libero, ed pulvinar nullam.", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tellus metus, finibus quis sagittis quis, volutpat a justo. Nunc et pellentesque quam. Fusce aliquam aliquam libero, sed pulvinar nullam.");
+	printf("\n\n");
+
+	/*
+	** FT_WRITE
+	*/
+	printf("%-12s :  ", "ft_write.s");
+	write_test("");
+	write_test("testjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
+	write_test("test allo");
+	write_test("test allo \0 what");
+	printf("\n\n");
+
+	// /*
+	// ** FT_READ
+	// */
+
+	printf("%-12s :  ", "ft_read.s");
+	read_test("allo");
+	read_test("allo mon gars");
+	read_test("allo \0 mon bars");
+	read_test("");
+	read_test("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tellus metus, finibus quis sagittis quis, volutpat a justo. Nunc et pellentesque quam. Fusce aliquam aliquam libero, sed pulvinar nullam.");
+	printf("\n\n");
+
+	/*
+	** FT_STRDUP
+	*/
+	printf("%-12s :  ", "ft_strdup.s");
+	strdup_test("allo");
+	strdup_test("allo wtf");
+	strdup_test("");
+	strdup_test("allo \0 mon bars");
+	strdup_test("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tellus metus, finibus quis sagittis quis, volutpat a justo. Nunc et pellentesque quam. Fusce aliquam aliquam libero, sed pulvinar nullam.");
+	printf("\n");
+
+	// printf("%d\n", strcmp(strdup(""), ft_strdup("")));
+
 }

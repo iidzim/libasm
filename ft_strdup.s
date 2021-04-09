@@ -3,7 +3,6 @@
 ;Syscall return to rax negative value if failed and sets errno to indicate the error
 section .text
     global _ft_strdup
-    extern ___error
     extern _ft_strlen
     extern _ft_strcpy
     extern _malloc
@@ -24,8 +23,4 @@ _ft_strdup:
     ret
 
 error:
-    call ___error
-    mov rdi, 12
-    mov [rax], rdi   ;enomem = 12 rant out of memory
-    mov rax, 0
     ret

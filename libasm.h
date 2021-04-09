@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libasm.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: iidzim <iidzim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 15:51:58 by iidzim            #+#    #+#             */
-/*   Updated: 2021/01/25 19:24:21 by mac              ###   ########.fr       */
+/*   Updated: 2021/03/19 18:27:54 by iidzim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@
 # include <fcntl.h>
 # include <string.h>
 #include <errno.h>
+
+
+
+# define RESET   "\033[0m"
+# define RED     "\033[31m"
+# define GREEN   "\033[32m"
+# define BUFFER_SIZE 512
 
 
 size_t		ft_strlen(const char *s);
